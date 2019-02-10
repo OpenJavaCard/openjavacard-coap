@@ -1,0 +1,6 @@
+include 'library-core'
+include 'library-server'
+include 'applet-server-tiny'
+//include 'client'
+//include 'proxy'
+//include 'tool'

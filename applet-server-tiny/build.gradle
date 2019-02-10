@@ -1,0 +1,32 @@
+apply plugin: 'java'
+apply plugin: 'javacard'
+
+archivesBaseName = 'openjavacard-coap-server-tiny'
+sourceCompatibility = 1.2
+
+buildscript {
+    dependencies {
+        classpath 'fr.bmartel:gradle-javacard:1.5.6'
+    }
+}
+
+dependencies {
+    compile project(':library-core')
+    compile project(':library-server')
+}
+
+javacard {
+    config {
+        jckit '../ext/javacard-sdks/jc222_kit'
+        cap {
+            aid = '0xD2:0x76:0x00:0x01:0x77:0x10:0x02:0x12:0x01:0x00:0x01'
+            version = '1.0'
+            packageName = 'org.openjavacard.coap.server.tiny'
+            output = 'openjavacard-coap-server-tiny.cap'
+            applet {
+                aid = '0xD2:0x76:0x00:0x01:0x77:0x10:0x02:0x12:0x01:0x00:0x01:0x01'
+                className = 'CoapApplet'
+            }
+        }
+    }
+}
