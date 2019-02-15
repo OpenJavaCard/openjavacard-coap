@@ -1,3 +1,5 @@
 .gradle
-build/**
-*/build
+**/build
+**/out
+**/*.iml
+

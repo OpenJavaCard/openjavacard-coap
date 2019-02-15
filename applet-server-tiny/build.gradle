@@ -10,11 +10,6 @@ buildscript {
     }
 }
 
-dependencies {
-    compile project(':library-core')
-    compile project(':library-server')
-}
-
 javacard {
     config {
         jckit '../ext/javacard-sdks/jc222_kit'
@@ -29,4 +24,9 @@ javacard {
             }
         }
     }
+}
+
+dependencies {
+    compile project(':library-core')
+    compile project(':library-server')
 }

@@ -34,7 +34,7 @@ public class CardConnector implements Connector {
 
     @Override
     public String getProtocol() {
-        return CoAP.PROTOCOL_UDP;
+        return CoAP.PROTOCOL_TCP;
     }
 
     @Override
@@ -81,12 +81,20 @@ public class CardConnector implements Connector {
         LOG.info("send " + HexUtil.bytesToHex(msg.getBytes()));
 
         CommandAPDU capdu = APDUUtil.buildCommand((byte)0x80, (byte)0x80, msg.getBytes());
-        //try {
-            //ResponseAPDU rapdu = mChannel.transmit(capdu);
+        try {
+            ResponseAPDU rapdu = mChannel.transmit(capdu);
+            // notify the library that the request was sent
             msg.onSent();
-        //} catch (CardException e) {
-        //    msg.onError(e);
-        //}
+            // construct response buffer
+            RawData response = RawData.inbound(
+                    rapdu.getData(),
+                    msg.getEndpointContext(),
+                    false);
+            // deliver the response
+            mMessageHandler.receiveData(response);
+        } catch (CardException e) {
+            msg.onError(e);
+        }
     }
 
 }

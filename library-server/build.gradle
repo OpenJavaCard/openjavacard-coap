@@ -10,10 +10,6 @@ buildscript {
     }
 }
 
-dependencies {
-    compile project(':library-core')
-}
-
 javacard {
     config {
         jckit '../ext/javacard-sdks/jc222_kit'
@@ -24,4 +20,8 @@ javacard {
             output = 'openjavacard-coap-server-tiny.cap'
         }
     }
+}
+
+dependencies {
+    compile project(':library-core')
 }

@@ -13,27 +13,22 @@ public class Main {
     public static void main(String[] arguments) {
         String command = arguments[0];
 
-        try {
-            InetSocketAddress address = new InetSocketAddress(
-                    InetAddress.getLocalHost(),
-                    CoAP.DEFAULT_COAP_PORT
-            );
+        CardConnector connector = new CardConnector(null);
 
-            CardConnector connector = new CardConnector(null);
+        CoapEndpoint endpoint = new CoapEndpoint.Builder()
+                    .setConnector(connector)
+                    .build();
 
-            CoapEndpoint endpoint = new CoapEndpoint.Builder()
-                        .setConnector(connector)
-                        .build();
+        CoapClient client = new CoapClient();
+        client.setEndpoint(endpoint);
 
-            CoapClient client = new CoapClient();
-            client.setEndpoint(endpoint);
+        if(command.equals("get")) {
+            client.setURI("coap+tcp://127.0.0.1/index");
+            client.get();
+        }
 
-            if(command.equals("get")) {
-                client.setURI("coap://127.0.0.1/index");
-                client.get();
-            }
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
+        if(command.equals("proxy")) {
+
         }
     }
 

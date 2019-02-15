@@ -2,23 +2,11 @@ package org.openjavacard.coap.core;
 
 public interface Coap {
 
-    public static final byte CLA_SCOAP = (byte)0x80;
-    public static final byte INS_SCOAP = (byte)0x80;
+    public static final byte CLA_COAP = (byte)0x80;
+    public static final byte INS_COAP = (byte)0x80;
 
-    public static final short VERSION_OFFSET  = 0;
-    public static final byte  VERSION_MASK    = (byte)0xD0;
-    public static final byte  VERSION_RFC7252 = (byte)0x40;
+    public static final short PORT = 5683;
 
-    public static final short TYPE_OFFSET = 0;
-    public static final byte  TYPE_CON = (byte)0x00;
-    public static final byte  TYPE_NC  = (byte)0x10;
-    public static final byte  TYPE_ACK = (byte)0x20;
-    public static final byte  TYPE_RST = (byte)0x30;
-
-    public static final short TKL_OFFSET = 0;
-    public static final short TKL_MASK = (byte)0x0F;
-
-    public static final short CODE_OFFSET = 1;
     public static final byte CODE_CLASS_MASK = (byte)0xE0;
     public static final byte CODE_DETAIL_MASK = (byte)0x1F;
 
@@ -57,7 +45,6 @@ public interface Coap {
     public static final byte SERVER_GATEWAY_TIMEOUT = (byte)0x94;
     public static final byte SERVER_PROXYING_NOT_SUPPORTED = (byte)0x95;
 
-    public static final short MSGID_OFFSET = 2;
 
     public static final short OPTION_IF_MATCH = 1;
     public static final short OPTION_URI_HOST = 3;
