@@ -2,6 +2,7 @@ package org.openjavacard.coap.server;
 
 import javacard.framework.APDU;
 import javacard.framework.ISO7816;
+import javacard.framework.Util;
 import org.openjavacard.coap.core.Coap;
 import org.openjavacard.coap.core.CoapException;
 import org.openjavacard.coap.core.CoapRequest;
@@ -40,12 +41,22 @@ public class CoapServer implements Coap {
             mRequest.parse(buf, ISO7816.OFFSET_CDATA, lc);
             // find handling resource
             CoapResource resource = findResource(mRequest);
-            // process the request
-            resource.process(mRequest, mResponse);
+            if(resource != null) {
+                // process the request
+                resource.process(mRequest, mResponse);
+            } else {
+                mResponse.setCode(CLIENT_NOT_FOUND);
+            }
         } catch (CoapException e) {
             mResponse.reset();
             mResponse.setCode(e.getCode());
+        } catch (Throwable t) {
+            mResponse.reset();
+            mResponse.setCode(SERVER_INTERNAL_ERROR);
         }
+
+        // copy the token
+        mResponse.setToken(mRequest.getToken());
 
         // serialize the response
         short lr = mResponse.finish(buf, (short)0, (short)buf.length);

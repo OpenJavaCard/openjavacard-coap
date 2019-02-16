@@ -66,7 +66,7 @@ public class CoapApplet extends Applet implements ISO7816, Coap {
             ISOException.throwIt(SW_SECURE_MESSAGING_NOT_SUPPORTED);
         }
 
-        if(cla != CLA_COAP) {
+        if(apdu.isISOInterindustryCLA()) {
             ISOException.throwIt(SW_CLA_NOT_SUPPORTED);
         }
 
@@ -75,7 +75,6 @@ public class CoapApplet extends Applet implements ISO7816, Coap {
         }
 
         mServer.process(apdu);
-
     }
 
 }

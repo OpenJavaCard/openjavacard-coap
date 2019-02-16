@@ -5,7 +5,7 @@ import org.openjavacard.coap.core.CoapException;
 import org.openjavacard.coap.core.CoapRequest;
 import org.openjavacard.coap.core.CoapResponse;
 
-public abstract class CoapResource implements CoapHandler {
+public abstract class CoapResource implements Coap, CoapHandler {
 
     private final byte[] mName;
 
@@ -47,7 +47,7 @@ public abstract class CoapResource implements CoapHandler {
                 processDelete(request, response);
                 break;
             default:
-                response.setCode(Coap.CLIENT_METHOD_NOT_ALLOWED);
+                response.setCode(CLIENT_METHOD_NOT_ALLOWED);
                 break;
         }
     }
